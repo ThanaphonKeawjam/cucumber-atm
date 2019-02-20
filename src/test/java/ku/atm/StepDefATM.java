@@ -37,7 +37,7 @@ public class StepDefATM {
         ODAccount = true;
     }
 
-    @Then("customer id (.*) negotitaed amount is (.+)")
+    @Then("customer id (.*) overdraw amount left is (.+)")
     public void negotitaed_amount(int id, double overAmount){
        BankAccount b = bank.findCustomer(id).getAccount();
        assertEquals(overAmount, b.getOverAmount());
