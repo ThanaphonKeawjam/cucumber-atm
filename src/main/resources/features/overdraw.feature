@@ -14,11 +14,15 @@ Scenario: Withdraw more than balance form OD account
   Given a customer OD account with id 2 and pin 222 with balance 200 and negotitaed amount 500 exists
   And I login to ATM with id 2 and pin 222
   When I overdraw 300 from ATM
-  Then customer id 2 negotitaed amount is 400
+  Then customer id 2 overdraw amount left is 400
+  Then my account balance is 0
+  Then I overdraw 100 from ATM
+  Then my account balance is 0
+  Then customer id 2 overdraw amount left is 300
 
-Scenario: Withdraw more than balance and negotitaed amount from OD account
+Scenario: Withdraw more than balance and more than negotitaed amount from OD account
   Given a customer OD account with id 2 and pin 222 with balance 200 and negotitaed amount 400 exists
   And I login to ATM with id 2 and pin 222
   When I overdraw 800 from ATM
-  Then customer id 2 negotitaed amount is 400
+  Then customer id 2 overdraw amount left is 400
   Then my account balance is 200

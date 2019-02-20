@@ -42,26 +42,21 @@ public class BankAccount {
       @param amount the amount of money to deposit
    */
    public void withdraw(double amount) throws NotEnoughBalanceException {
-      if (amount > balance)
-         if(overAmount != -1){
-            double pre_balance = balance;
-            double pre_over = overAmount;
-            double left_amount = amount - balance;
-            overAmount = overAmount - left_amount;
-            balance = 0;
-
-
-
-            if(overAmount <= 0) {
-               balance = pre_balance;
-               overAmount = pre_over;
-
+         double value = amount - balance;
+         double pre_balance = balance - amount;
+         if(amount > balance){
+            if(overAmount == -1) throw new NotEnoughBalanceException("cannot withdraw more than balance");
+            if(value > overAmount){
                throw new NotEnoughBalanceException("cannot withdraw more than balance");
-
-            }else  throw new NotEnoughBalanceException("cannot withdraw more than balance");
-         }else
-            throw new NotEnoughBalanceException("cannot withdraw more than balance");
-      balance = balance - amount;
+            }else{
+               overAmount = overAmount - value;
+            }
+         }
+         if(pre_balance <= 0) {
+            balance = 0;
+            throw new NotEnoughBalanceException("can withdraw in range of overdraw");
+         }
+         else balance = balance - amount;
    }
 
    /** 
